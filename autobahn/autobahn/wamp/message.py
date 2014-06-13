@@ -520,7 +520,7 @@ class Challenge(Message):
          raise ProtocolError("invalid message length {} for CHALLENGE".format(len(wmsg)))
 
       method = wmsg[1]
-      if type(method) != str:
+      if type(method) != six.text_type:
          raise ProtocolError("invalid type {} for 'method' in CHALLENGE".format(type(method)))
 
       extra = check_or_raise_extra(wmsg[2], "'extra' in CHALLENGE")
