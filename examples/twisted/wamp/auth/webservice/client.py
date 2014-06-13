@@ -67,6 +67,9 @@ class MyFrontendComponent(wamp.ApplicationSession):
 
     def onMessage(self, msg):
         if isinstance(msg, message.Challenge):
+            # TODO: verify that this can *only* come from the router!
+            # Would seem better if we could get a deferred from the 
+            # HELLO and attach this function to that...
             if msg.method == 'userpass':
                 return self._transport.send(message.Authenticate(
                     json.dumps({
@@ -76,7 +79,6 @@ class MyFrontendComponent(wamp.ApplicationSession):
                     }).decode('utf-8') # WTF!
                 ))
         return wamp.ApplicationSession.onMessage(self, msg)
-
 
 class LoginClientProtocol(WampWebSocketClientProtocol):
     pass
